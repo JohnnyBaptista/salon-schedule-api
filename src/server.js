@@ -11,11 +11,6 @@ app.use(routes);
 
 const PORT = process.env.PORT || 3333;
 
-app.get('/', (req, res) => {
-    console.log('entrou');
-    res.json({oi: 'mundo'})
-})
-
 app.listen(PORT, () => {
     console.log(`Server running at port ${PORT}`);
 });
