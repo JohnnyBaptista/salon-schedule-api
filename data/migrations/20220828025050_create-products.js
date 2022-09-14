@@ -7,7 +7,9 @@ exports.up = function (knex) {
     tbl.increments("id").primary();
     tbl.text("name", 128).notNullable();
     tbl.integer("quantity").notNullable();
-    tbl.integer("category_id", 256).references('category.id');
+    // references
+    tbl.integer("brand_id", 256).references('brand.id').notNullable().onDelete("CASCADE");
+    tbl.timestamp(true, true)
   });
 };
 
