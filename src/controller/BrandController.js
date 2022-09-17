@@ -2,8 +2,8 @@ const queryMaker = require("../models/dbHelpers");
 
 const store = async (req, res) => {
   try {
-    const { username, password } = req.body;
-    const insertedBrand = await queryMaker.add("brand", { username, password });
+    const { name } = req.body;
+    const insertedBrand = await queryMaker.add("brand", {name});
     return res.status(200).json(insertedBrand);
   } catch (error) {
     return res.status(500).json(error);
