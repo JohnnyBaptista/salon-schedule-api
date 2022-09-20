@@ -9,4 +9,5 @@ routes.get('/:id', userController.getUserById);
 routes.patch('/:id', userController.updateUser);
 routes.delete('/:id', userController.deleteUser);
 
+
 module.exports = routes;
