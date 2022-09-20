@@ -1,6 +1,8 @@
 const express = require('express');
 const brandController = require('../controller/BrandController');
 
+const routes = express.Router();
+
 // Aqui foi posto um novo comentario 
 routes.get('/', brandController.getAllBrand);
 routes.post('/', brandController.createBrand);
