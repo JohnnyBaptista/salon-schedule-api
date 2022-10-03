@@ -2,8 +2,8 @@ const queryMaker = require("../models/dbHelpers");
 
 const findAll = async (req, res) => {
   try {
-    const workers = await queryMaker.findAll("worker");
-    return res.json(workers);
+    const clients = await queryMaker.findAll("client");
+    return res.json(clients);
   } catch (error) {
     return res.status(500).json(error);
   }
@@ -11,20 +11,22 @@ const findAll = async (req, res) => {
 
 const store = async (req, res) => {
   try {
-    const { name, email, telephone } = req.body;
-    const insertedWorker = await queryMaker.add("worker", {
+    const { name, email, telephone, birth } = req.body;
+    console.log({birth});
+    const insertedClient = await queryMaker.add("client", {
       name,
       telephone,
       email,
+      birth,
     });
-    return res.status(200).json(insertedWorker);
+    return res.status(200).json(insertedClient);
   } catch (error) {
     return res.status(500).json(error);
   }
 };
 
 //todo
-const updateWorker = async (req, res) => {
+const updateClient = async (req, res) => {
   try {
     res.send(true);
   } catch (error) {
@@ -32,7 +34,7 @@ const updateWorker = async (req, res) => {
   }
 };
 
-const getWorkerById = async (req, res) => {
+const getClientById = async (req, res) => {
   try {
     res.send(true);
   } catch (error) {
@@ -40,7 +42,7 @@ const getWorkerById = async (req, res) => {
   }
 };
 
-const deleteWorker = async (req, res) => {
+const deleteClient = async (req, res) => {
   try {
     res.send(true);
   } catch (error) {
@@ -48,4 +50,4 @@ const deleteWorker = async (req, res) => {
   }
 };
 
-module.exports = { findAll, store, updateWorker, deleteWorker, getWorkerById };
+module.exports = { findAll, store, updateClient, deleteClient, getClientById };
