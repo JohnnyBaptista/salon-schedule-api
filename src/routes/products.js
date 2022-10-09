@@ -4,10 +4,10 @@ const productsController = require('../controller/ProductsController');
 const routes = express.Router();
 
 // Aqui foi posto um novo comentario 
-routes.get('/', productsController.getAllBrand);
-routes.post('/', productsController.createBrand);
-routes.get('/:id', productsController.getBrandById);
-routes.patch('/:id', productsController.updateBrand);
-routes.delete('/:id', productsController.deleteBrand);
+routes.get('/', productsController.getAllProducts);
+routes.post('/', productsController.createProducts);
+routes.get('/:id', productsController.getProductsById);
+routes.patch('/:id', productsController.updateProducts);
+routes.delete('/:id', productsController.deleteProducts);
 
 module.exports = routes;

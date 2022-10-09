@@ -4,15 +4,16 @@ const store = async (req, res) => {
   try {
     const { name, amount, brand_id } = req.body;
     const brandConference = await queryMaker.findById("brand", brand_id);
-    if(!brandConference.lenght > 0 ){
-        return res
-        .status(404)
-        .json({msg: 'Marca não encontrada'})
+    if (!brandConference.length > 0) {
+      return res.status(404).json({ msg: "Marca não encontrada" });
     }
-    const insertedProucts = await queryMaker.add("products", {name, amount, brand_id});
-    return res.status(200).json(insertedProucts);
+    const insertedProducts = await queryMaker.add("products", {
+      name,
+      quantity: amount,
+      brand_id,
+    });
+    return res.status(200).json(insertedProducts);
   } catch (error) {
-    console.log(error)
     return res.status(500).json(error);
   }
 };
@@ -46,9 +47,20 @@ const deleteOne = async (req, res) => {
 
 const updateOne = async (req, res) => {
   try {
-    const products = await queryMaker.updateOne("products", req.params.id, req.body);
+    const {brand_id} = req.body
+    const brandConference = await queryMaker.findById("brand", brand_id);
+    console.log(brandConference)
+    if (!brandConference.length > 0) {
+      return res.status(404).json({ msg: "Marca não encontrada" });
+    }
+    const products = await queryMaker.updateOne(
+      "products",
+      req.params.id,
+      req.body
+    );
     return res.status(200).json(products);
   } catch (error) {
+    console.log(error);
     return res.status(500).json(error);
   }
 };
@@ -60,4 +72,3 @@ module.exports = {
   deleteProducts: deleteOne,
   updateProducts: updateOne,
 };
-
