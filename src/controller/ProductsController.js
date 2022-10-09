@@ -3,7 +3,7 @@ const queryMaker = require("../models/dbHelpers");
 const store = async (req, res) => {
   try {
     const { name, amount, brand_id } = req.body;
-    const brandConference = await queryMaker("brand_id").findById(brand_id);
+    const brandConference = await queryMaker.findById("brand", brand_id);
     if(!brandConference.lenght > 0 ){
         return res
         .status(404)
@@ -12,6 +12,7 @@ const store = async (req, res) => {
     const insertedProucts = await queryMaker.add("products", {name, amount, brand_id});
     return res.status(200).json(insertedProucts);
   } catch (error) {
+    console.log(error)
     return res.status(500).json(error);
   }
 };
@@ -53,10 +54,10 @@ const updateOne = async (req, res) => {
 };
 
 module.exports = {
-  createBrand: store,
-  getAllBrand: findAll,
-  getBrandById: findOne,
-  deleteBrand: deleteOne,
-  updateBrand: updateOne,
+  createProducts: store,
+  getAllProducts: findAll,
+  getProductsById: findOne,
+  deleteProducts: deleteOne,
+  updateProducts: updateOne,
 };
 
