@@ -30,10 +30,27 @@ function join(tbl_1, tbl_1_id, tbl_2, tbl_2_id) {
 
 function workClientJoin() {
   return db
-    .select("work-client.*", "worker.name as worker_name", "client.name as client_name")
+    .select(
+      "work-client.*",
+      "worker.name as worker_name",
+      "client.name as client_name"
+    )
     .from("work-client")
     .innerJoin("worker", "work-client.worker_id", "worker.id")
-    .innerJoin("client", "work-client.client_id", "client.id")
+    .innerJoin("client", "work-client.client_id", "client.id");
 }
 
-module.exports = { add, findById, findAll, deleteOne, updateOne, join, workClientJoin};
+function findByColumn(tbl, column, value) {
+  return db(tbl).select("*").where(column, value);
+}
+
+module.exports = {
+  add,
+  findById,
+  findAll,
+  deleteOne,
+  updateOne,
+  join,
+  workClientJoin,
+  findByColumn
+};
