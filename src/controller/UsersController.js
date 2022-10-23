@@ -1,7 +1,6 @@
 const queryMaker = require("../models/dbHelpers");
-
+const { createHashPass } = require("../utils/passwordHash");
 const store = async (req, res) => {
-  console.log({ body: req.body });
   try {
     const { username, password } = req.body;
     const insertedUser = await queryMaker.add("users", { username, password });
@@ -47,10 +46,31 @@ const updateOne = async (req, res) => {
   }
 };
 
+const login = async (req, res) => {
+  try {
+    const { username, password } = req.body; //vem do body do insmonia
+
+    const verify = await queryMaker.findByColumn("users", "username", username); //vem do banco
+    if (!verify.length > 0) {
+      return res.status(404).json({ msg: "Usuario ou senha não existem" });
+    }
+    const new_password = createHashPass(password);
+    const isPasswordsValid = verify[0].password === new_password;
+    if (isPasswordsValid) {
+      return res.status(200).json({ msg: "Login feito com sucesso" });
+    }
+    return res.status(400).json({ msg: "Usuario ou senha não existem" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error);
+  }
+};
+
 module.exports = {
   createUser: store,
   getAllUsers: findAll,
   getUserById: findOne,
   deleteUser: deleteOne,
   updateUser: updateOne,
+  loginUser: login,
 };

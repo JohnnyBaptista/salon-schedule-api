@@ -3,8 +3,11 @@ const queryMaker = require("../models/dbHelpers");
 const findAll = async (req, res) => {
   try {
     const workers = await queryMaker.findAll("worker");
+    const join = await queryMaker.join('work-client', 'worker_id', 'worker', 'id');
+    console.log({join})
     return res.json(workers);
   } catch (error) {
+    console.log(error)
     return res.status(500).json(error);
   }
 };

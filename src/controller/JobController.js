@@ -2,9 +2,11 @@ const queryMaker = require("../models/dbHelpers");
 
 const findAll = async (req, res) => {
   try {
-    const jobs = await queryMaker.findAll("work-client");
-    return res.json(jobs);
+    const join2 = await queryMaker.workClientJoin();
+    console.log(join2)
+    return res.json(join);
   } catch (error) {
+    console.log(error);
     return res.status(500).json(error);
   }
 };
@@ -12,8 +14,8 @@ const findAll = async (req, res) => {
 const store = async (req, res) => {
   try {
     const { client_id, worker_id } = req.body;
-    const workerSent = await queryMaker("worker").findById(worker_id);
-    const clientSent = await queryMaker("client").findById(client_id);
+    const workerSent = await queryMaker.findById("worker", worker_id);
+    const clientSent = await queryMaker.findById("client", client_id);
     if (!workerSent.length > 0) {
       return res
         .status(404)
@@ -27,6 +29,7 @@ const store = async (req, res) => {
     const insertedJob = await queryMaker.add("work-client", req.body);
     return res.status(200).json(insertedJob);
   } catch (error) {
+    console.log(error);
     return res.status(500).json(error);
   }
 };
@@ -76,4 +79,3 @@ const deleteJob = async (req, res) => {
 };
 
 module.exports = { findAll, store, updateJob, deleteJob, getJobById };
-
