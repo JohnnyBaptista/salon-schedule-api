@@ -17,7 +17,6 @@ class Sender {
       if (this.isAuth) {
         return;
       }
-      qrcode.generate(qr, { small: true });
       this.qr = qr;
     });
 
