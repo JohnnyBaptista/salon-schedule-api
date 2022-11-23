@@ -33,7 +33,8 @@ function workClientJoin() {
     .select(
       "work-client.*",
       "worker.name as worker_name",
-      "client.name as client_name"
+      "client.name as client_name",
+      "client.telephone as client_telephone"
     )
     .from("work-client")
     .innerJoin("worker", "work-client.worker_id", "worker.id")
