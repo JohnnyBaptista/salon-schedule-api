@@ -2,15 +2,22 @@ const queryMaker = require("../models/dbHelpers");
 
 const findAll = async (req, res) => {
   try {
-    const join2 = await queryMaker.workClientJoin();
-    console.log(join2)
+    const join = await queryMaker.workClientJoin();
+    console.log(join)
     return res.json(join);
   } catch (error) {
     console.log(error);
     return res.status(500).json(error);
   }
 };
-
+/**
+ * work_description
+ * date
+ * price
+ * worker_id
+ * client_id
+ * @returns 
+ */
 const store = async (req, res) => {
   try {
     const { client_id, worker_id } = req.body;
@@ -72,8 +79,9 @@ const deleteJob = async (req, res) => {
         .json({ msg: `Trabalho com o id ${req.params.id} não existe` });
     }
     await queryMaker.deleteOne("work-client", req.params.id);
-    res.status(200).json()({ msg: "Deletado com sucesso" });
+    return res.status(200).json({ msg: "Deletado com sucesso" });
   } catch (error) {
+    console.log(error)
     return res.status(500).json(error);
   }
 };

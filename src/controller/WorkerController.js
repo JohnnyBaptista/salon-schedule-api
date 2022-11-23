@@ -25,6 +25,14 @@ const store = async (req, res) => {
     return res.status(500).json(error);
   }
 };
+const deleteWorker = async (req, res) => {
+  try {
+    const worker = await queryMaker.deleteOne("worker", req.params.id);
+    return res.status(200).json(worker);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
 
 //todo
 const updateWorker = async (req, res) => {
@@ -43,12 +51,5 @@ const getWorkerById = async (req, res) => {
   }
 };
 
-const deleteWorker = async (req, res) => {
-  try {
-    res.send(true);
-  } catch (error) {
-    return res.status(500).json(error);
-  }
-};
 
 module.exports = { findAll, store, updateWorker, deleteWorker, getWorkerById };

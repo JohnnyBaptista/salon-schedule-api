@@ -28,7 +28,8 @@ const store = async (req, res) => {
 //todo
 const updateClient = async (req, res) => {
   try {
-    res.send(true);
+    const client = await queryMaker.updateOne("client", req.params.id, req.body);
+    return res.status(200).json(client);
   } catch (error) {
     return res.status(500).json(error);
   }
@@ -36,7 +37,8 @@ const updateClient = async (req, res) => {
 
 const getClientById = async (req, res) => {
   try {
-    res.send(true);
+    const client = await queryMaker.findById("client", req.params.id);
+    return res.status(200).json(client[0]);
   } catch (error) {
     return res.status(500).json(error);
   }
@@ -44,7 +46,8 @@ const getClientById = async (req, res) => {
 
 const deleteClient = async (req, res) => {
   try {
-    res.send(true);
+    const client = await queryMaker.deleteOne("client", req.params.id);
+    return res.status(200).json(client);
   } catch (error) {
     return res.status(500).json(error);
   }

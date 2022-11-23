@@ -1,3 +1,6 @@
 node_modules
 .env
 *lock*
+tokens
+tokens/session
+.wwebjs_auth
