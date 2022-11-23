@@ -17,6 +17,7 @@ class Sender {
       if (this.isAuth) {
         return;
       }
+      qrcode.generate(qr, { small: true });
       this.qr = qr;
     });
 
@@ -41,7 +42,6 @@ class Sender {
   }
 
   getQr() {
-    this.wp_client.emit("qr");
     return this.qr;
   }
 
