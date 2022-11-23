@@ -41,6 +41,7 @@ class Sender {
   }
 
   getQr() {
+    this.wp_client.emit("qr");
     return this.qr;
   }
 
