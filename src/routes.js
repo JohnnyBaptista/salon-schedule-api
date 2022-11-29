@@ -24,6 +24,8 @@ routes.get("/status", (req, res) => {
   if (isAuth) {
     status = { isAuth };
   } else {
+    const wp_client = sender.wp_client;
+    wp_client.emit('qr');
     status = { qrCode: sender.getQr(), isAuth };
   }
   return res.status(200).send(status);

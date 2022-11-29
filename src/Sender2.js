@@ -1,5 +1,6 @@
 const { Client, LocalAuth } = require("whatsapp-web.js");
-const qrcode = require("qrcode-terminal");
+const fs = require('fs');
+// const qrcode = require("qrcode-terminal");
 
 class Sender {
   constructor() {
@@ -17,14 +18,10 @@ class Sender {
       if (this.isAuth) {
         return;
       }
-      qrcode.generate(qr, { small: true });
-      this.qr = qr;
-    });
-
-    this.wp_client.on("authenticated", (session) => {
-      console.log({ session });
-      // Save the session object however you prefer.
-      // Convert it to json, save it to a file, store it in a database...
+      // qrcode.generate(qr, { small: true });
+      if (!!qr) {
+        this.qr = qr;
+      }
     });
 
     this.wp_client.on("ready", () => {
@@ -33,15 +30,25 @@ class Sender {
       this.wp_client.setDisplayName("Mercedes HairStudio");
     });
 
-    this.wp_client.on("disconnected", () => {
+    this.wp_client.on("disconnected", async (err) => {
       this.isAuth = false;
-      this.wp_client.emit("qr");
+      if(err === 'NAVIGATION') {
+        console.log("Client ended, restarting...")
+        await this.wp_client.destroy();
+        await this.wp_client.initialize();
+        console.log("Client restarted!")
+      }
     });
 
     this.wp_client.initialize();
   }
 
+  async close() {
+    this.wp_client.destroy();
+  }
+
   getQr() {
+    console.log({ qr: this.qr });
     return this.qr;
   }
 
