@@ -37,6 +37,7 @@ const setContext = (req, res, next) => {
   if (!req.context) req.context = {};
   next();
 };
+
 app.use(setContext);
 
 app.use(routes);
