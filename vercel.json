@@ -1,10 +1,10 @@
 {
-    "version": 1,
+    "version": 2,
     "name": "salon-schedule",
     "builds": [
-       { "src": "server.js", "use": "@vercel/node" }
+       { "src": "./src/server.js", "use": "@vercel/node" }
     ],
     "routes": [
-       { "src": "/(.*)", "dest": "src/server.js" }
+       { "src": "/(.*)", "dest": "/" }
     ]
  }
