@@ -4,12 +4,13 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon src/server.js",
-    "start": "node src/server.js"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "author": "JP Baptista - Felipe Freitas",
   "license": "ISC",
   "devDependencies": {
+    "create-desktop-shortcuts": "^1.10.1",
     "nodemon": "^2.0.19"
   },
   "dependencies": {
